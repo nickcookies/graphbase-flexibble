@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
       const encodedToken = jsonwebtoken.sign(
         {
           ...token,
-          iss: 'grafbase',
+          iss: "grafbase",
           exp: Math.floor(Date.now() / 1000) + 60 * 60,
         },
         secret
@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session }) {
       const email = session?.user?.email as string;
       try {
-        const data = await getUser(email) as { user?: UserProfile };
+        const data = (await getUser(email)) as { user?: UserProfile };
         const newSession = {
           ...session,
           user: {
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
     },
     async signIn({ user }: { user: AdapterUser | User }) {
       try {
-        const userExists = await getUser(user?.email as string) as {
+        const userExists = (await getUser(user?.email as string)) as {
           user?: UserProfile;
         };
 
@@ -81,6 +81,6 @@ export const authOptions: NextAuthOptions = {
 };
 
 export async function getCurrentUser() {
-  const session = await getServerSession(authOptions) as SessionInterface;
+  const session = (await getServerSession(authOptions)) as SessionInterface;
   return session;
 }
