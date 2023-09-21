@@ -9,6 +9,7 @@ const User = g
     description: g.string().optional(),
     githubUrl: g.url().optional(),
     linkedInUrl: g.url().optional(),
+    // @ts-ignore
     projects: g
       .relation(() => Project)
       .list()
@@ -26,7 +27,7 @@ const Project = g
     image: g.url(),
     liveSiteUrl: g.url(),
     githubUrl: g.url(),
-    category: g.string(),
+    category: g.string().search(),
     createdBy: g.relation(() => User),
   })
   .auth((rules) => {
@@ -34,7 +35,7 @@ const Project = g
   });
 
 const jwt = auth.JWT({
-  issuer: 'grafbase',
+  issuer: "grafbase",
   secret: g.env("NEXTAUTH_SECRET"),
 });
 

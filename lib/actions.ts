@@ -1,8 +1,11 @@
 import { ProjectForm } from "@/common.types";
+import { categoryFilters } from "@/constants";
 import {
   createProjectMutation,
   createUserMutation,
+  getProjectByIdQuery,
   getUserQuery,
+  projectsQuery,
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
 import { AutoAccessorPropertyDeclaration } from "typescript";
@@ -91,4 +94,20 @@ export const createNewProject = async (
 
     return makeGraphQLRequest(createProjectMutation, variables);
   }
+};
+
+export const fetchAllProjects = (
+  category?: string | null,
+  endcursor?: string | null
+) => {
+  client.setHeader("x-api-key", apiKey);
+
+  const categories = category == null ? categoryFilters : [category];
+
+  return makeGraphQLRequest(projectsQuery, { categories, endcursor });
+};
+
+export const getProjectDetails = (id: string) => {
+  client.setHeader("x-api-key", apiKey);
+  return makeGraphQLRequest(getProjectByIdQuery, { id });
 };
