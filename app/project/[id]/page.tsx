@@ -4,8 +4,9 @@ import Link from "next/link";
 import { getCurrentUser } from "@/lib/session";
 import { getProjectDetails } from "@/lib/actions";
 import Modal from "@/components/Modal";
-// import RelatedProjects from "@/components/RelatedProjects"
+import RelatedProjects from "@/components/RelatedProjects";
 import { ProjectInterface } from "@/common.types";
+import ProjectActions from "@/components/ProjectActions";
 // import ProjectActions from "@/components/ProjectActions"
 
 const Project = async ({ params: { id } }: { params: { id: string } }) => {
@@ -54,7 +55,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
 
         {session?.user?.email === projectDetails?.createdBy?.email && (
           <div className="flex justify-end items-center gap-2">
-            {/* <ProjectActions projectId={projectDetails?.id} /> */}
+            <ProjectActions projectId={projectDetails?.id} />
           </div>
         )}
       </section>
@@ -109,7 +110,10 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
         <span className="w-full h-0.5 bg-light-white-200" />
       </section>
 
-      {/* <RelatedProjects userId={projectDetails?.createdBy?.id} projectId={projectDetails?.id} /> */}
+      <RelatedProjects
+        userId={projectDetails?.createdBy?.id}
+        projectId={projectDetails?.id}
+      />
     </Modal>
   );
 };
