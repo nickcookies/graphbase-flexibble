@@ -3,7 +3,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Flexible",
+  title: "Flexibble",
   description: "Showcase and discover remarkable developer projects",
 };
 
